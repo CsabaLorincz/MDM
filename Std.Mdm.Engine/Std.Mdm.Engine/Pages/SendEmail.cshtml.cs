@@ -6,23 +6,44 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Web;
 using System.Net.Mail;
-
-
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
+using Std.Mdm.Engine.Data;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Text;
+using System.Configuration;
+using System.Globalization;
+using System.ComponentModel;
+using System.Collections.Specialized;
+using System.Xml.Xsl;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Std.Mdm.Engine.Pages
 {
     public class SendEmailModel : PageModel
     {
+        private readonly IConfiguration Configuration;
+        public SendEmailModel(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
         public void OnGet()
         {
+            
+            
             String body = "Testbody";
-            String ppath = "D:\\Source\\Sapientia\\1234.txt";
-            System.IO.StreamReader reader = new System.IO.StreamReader(ppath);
-            String password;
-            password = reader.ReadLine();
             String reciever = User.Identity.Name;
-            MailMessage o = new MailMessage("lorincz.csaba99@gmail.com", reciever, "Test Email 2", body);
-            System.Net.NetworkCredential netCred = new System.Net.NetworkCredential("lorincz.csaba99@gmail.com", password);
+            
+            String sender = Configuration["SenderEmail"];
+            String password = Configuration["SenderPW"];
+            MailMessage o = new MailMessage(sender, reciever, "Test Email 2", body);
+            System.Net.NetworkCredential netCred = new System.Net.NetworkCredential(sender, password);
             SmtpClient smtpobj = new SmtpClient("smtp.gmail.com", 587);
             smtpobj.EnableSsl = true;
             smtpobj.Credentials = netCred;

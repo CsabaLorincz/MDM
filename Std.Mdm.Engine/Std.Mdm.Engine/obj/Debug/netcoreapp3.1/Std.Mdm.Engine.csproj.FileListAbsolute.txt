@@ -683,7 +683,6 @@ D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\obj\Debug\netcoreapp3.1\st
 D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\obj\Debug\netcoreapp3.1\Std.Mdm.Engine.dll
 D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\obj\Debug\netcoreapp3.1\Std.Mdm.Engine.pdb
 D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\obj\Debug\netcoreapp3.1\Std.Mdm.Engine.genruntimeconfig.cache
-D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\obj\Debug\netcoreapp3.1\Std.Mdm.Engine.csproj.CoreCompileInputs.cache
 D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\obj\Debug\netcoreapp3.1\Razor\Pages\SendEmail.cshtml.g.cs
 D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\bin\Debug\netcoreapp3.1\Std.Mdm.Engine.exe
 D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
@@ -807,3 +806,7 @@ D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\bin\Debug\netcoreapp3.1\ru
 D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\obj\Debug\netcoreapp3.1\Std.Mdm.Engine.csproj.CoreCompileInputs.cache
+D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+D:\Source\Sapientia\MDM\Std.Mdm.Engine\Std.Mdm.Engine\obj\Debug\netcoreapp3.1\Razor\Pages\ApiConnect.cshtml.g.cs

@@ -23,6 +23,10 @@ using System.ComponentModel;
 using System.Collections.Specialized;
 using System.Xml.Xsl;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Components;
+using System.Data.Common;
+using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal.Account.Manage;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace Std.Mdm.Engine.Pages
 {
@@ -49,6 +53,7 @@ namespace Std.Mdm.Engine.Pages
             smtpobj.Credentials = netCred;
             smtpobj.DeliveryMethod=SmtpDeliveryMethod.Network;
             smtpobj.Send(o);
+            
         }
     }
 }

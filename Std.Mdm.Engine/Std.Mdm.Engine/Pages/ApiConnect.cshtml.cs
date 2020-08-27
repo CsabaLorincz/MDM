@@ -16,14 +16,13 @@ namespace Std.Mdm.Engine.Pages
         private static async Task ProcessRepositories()
         {
             client.DefaultRequestHeaders.Accept.Clear();
-           // client.DefaultRequestHeaders.Accept.Add(
-              //  new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-           // client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
-
-            var stringTask = client.GetStringAsync("http://localhost/hmdm");
-
+            // client.DefaultRequestHeaders.Accept.Add(
+            //  new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
+            // client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
+            var stringTask = client.GetStringAsync("http://192.168.56.101:8080/hmdm");
             var msg = await stringTask;
-            Console.Write(msg);
+            System.Diagnostics.Debug.WriteLine(msg);
+            
         }
        
         public async void OnGet()

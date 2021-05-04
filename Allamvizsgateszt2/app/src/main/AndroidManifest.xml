@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.allamvizsgateszt2">
+    package="com.mdm.app">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <application android:allowBackup="true"
-        android:name=".Database.MDMDatabaseApp"
+        android:testOnly="true"
+        android:name="com.mdm.app.Database.MDMDatabaseApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -17,7 +18,7 @@
         android:theme="@style/Theme.Allamvizsgateszt2">
         <activity
             android:lockTaskMode="if_whitelisted"
-            android:name=".MainActivity"
+            android:name="com.mdm.app.activities.MDMActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Allamvizsgateszt2.NoActionBar"
             tools:targetApi="m">
@@ -27,7 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".AdminManager"
+        <receiver android:name="com.mdm.app.Receivers.AdminManager"
+            android:testOnly="true"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data android:name="android.app.device_admin"
                 android:resource="@xml/device_admin_sample" />
@@ -38,7 +40,7 @@
         <receiver
             android:enabled="true"
             android:exported="true"
-            android:name=".MDMBroadcastReceiver"
+            android:name="com.mdm.app.Receivers.MDMBroadcastReceiver"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
 
             <intent-filter>

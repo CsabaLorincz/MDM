@@ -33,15 +33,11 @@ namespace MDMApi.Database
                         join app in db.Apps on pol.App_Id equals  app.App_Id
                         where id == pol.User_Id
                         select app.Name;
-                    /*var x=from app in db.Apps
-                        select app;*/
                     var list=new List<string>();
                     int counter=0;
                     foreach(var i in x){
                         list.Add(i);
                         ++counter;
-                        
-
                     }
                     return list;
                 }    

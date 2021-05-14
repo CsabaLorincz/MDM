@@ -49,7 +49,6 @@ class AppListFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         apps= MDMActivity.applications
         appAdapter = AppRecyclerViewAdapter()
         appAdapter.setActivity(requireActivity(), userViewModel)
@@ -67,41 +66,28 @@ class AppListFragment : Fragment() {
             val packageInfo = MDMActivity.getAllApps()[i]
             if(allowed(packageInfo))
                 APP_PACKAGES.add(packageInfo.applicationInfo.packageName)
-            Log.d("Igen", packageInfo.applicationInfo.packageName)
-
         }
 
 
         if(deviceManager!!.isDeviceOwnerApp("")) {
-            Log.d("ASD", compName.toString())
-            Log.d("ASD", deviceManager.toString())
             if (deviceManager!!.isAdminActive(compName!!)) {
-                Log.d("ASD jo", compName.toString())
-                Log.d("ASD jo", deviceManager.toString())
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     deviceManager!!.setLockTaskPackages(compName!!, APP_PACKAGES.toTypedArray())
                 }
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
                     deviceManager!!.setLockTaskFeatures(compName!!, DevicePolicyManager.LOCK_TASK_FEATURE_HOME or
                             DevicePolicyManager.LOCK_TASK_FEATURE_OVERVIEW)
-
-                    Log.d("true", "ttt")
                 }
             }
         }
         else{
-            Log.d("ASD sad", compName.toString())
-            Log.d("ASD sad", deviceManager.toString())
             if(deviceManager!!.isAdminActive(compName!!)){
-                Log.d("ASD maybe not sad?", "asdasd")
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     deviceManager!!.setLockTaskPackages(compName!!, APP_PACKAGES.toTypedArray())
                 }
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
                     deviceManager!!.setLockTaskFeatures(compName!!, DevicePolicyManager.LOCK_TASK_FEATURE_HOME or
                             DevicePolicyManager.LOCK_TASK_FEATURE_OVERVIEW)
-                    //deviceManager!!.setLockTaskFeatures(compName!!, LOCK_TASK_FEATURE_OVERVIEW)
-                    Log.d("true", "ttt")
                 }
             }
         }
@@ -165,7 +151,7 @@ class AppListFragment : Fragment() {
             }
         })
 
-        var check=view.findViewById<CheckedTextView>(R.id.check)
+        val check=view.findViewById<CheckedTextView>(R.id.check)
         check.setOnClickListener {
             checked=!checked
             if(checked){
@@ -190,8 +176,8 @@ class AppListFragment : Fragment() {
     }
 
     private fun allowed(packageInfo: PackageInfo):Boolean{
-        var packageManager=(activity as MDMActivity).packageManager
-        var name=packageInfo.applicationInfo.loadLabel(packageManager).toString()
+        val packageManager=(activity as MDMActivity).packageManager
+        val name=packageInfo.applicationInfo.loadLabel(packageManager).toString()
         if(MDMActivity.applications.applications.contains(name))
             return false
         return true

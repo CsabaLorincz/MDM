@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MDMApi.Database;
 
 namespace MDMApi.Repositories{
-    public class InMemUsersRepository: IUserRepository
+    public class FromDatabaseUsersRepository: IUserRepository
     {
         DBService dbservice=new DBService();
 

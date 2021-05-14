@@ -28,51 +28,24 @@ class MDMActivity : AppCompatActivity() {
     var deviceManager: DevicePolicyManager? = null
     var compName: ComponentName? = null
 
-    val userViewModel: UserViewModel by viewModels {
-        UserViewModelFactory((application as MDMDatabaseApp).repository)
-    }
-
-
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.requestPermission()
-        Log.d("Startalma", "startalma")
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
-
         compName = ComponentName(this, AdminManager::class.java)
         deviceManager = getSystemService(
                 Context.DEVICE_POLICY_SERVICE
         ) as DevicePolicyManager
-        //val arr=arrayOf("")
-        //deviceManager!!.setLockTaskPackages(compName!!, arr)
         val list = packageManager.getInstalledPackages(0)
         setAll(list)
-        Log.d("elsolog", "123")
         if(!deviceManager!!.isAdminActive(compName!!)){
-
             val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
             intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, compName)
             startActivityForResult(intent, 0)
         }
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     fun getComp():ComponentName?{
@@ -87,14 +60,12 @@ class MDMActivity : AppCompatActivity() {
     companion object Data{
         var applications: Applications = Applications(mutableListOf())
         fun setData(applications: Applications){
-            Data.applications =applications
-            for(i in applications.applications)
-                Log.d("siker:)", i)
+            Data.applications = applications
         }
 
         private lateinit var allApps: MutableList<PackageInfo>
         fun setAll(applications: MutableList<PackageInfo> ){
-            allApps =applications
+            allApps = applications
         }
         fun getAllApps(): MutableList<PackageInfo>{
             return allApps
@@ -107,12 +78,10 @@ class MDMActivity : AppCompatActivity() {
         var user=""
         fun setAsUser(name: String){
             user =name
-            Log.d("as errorName", name)
         }
         var pw=""
         fun setAsPw(pass: String){
             pw =pass
-            Log.d("as errorPW", pass)
         }
         fun getSHA512(str:String):String{
             val md: MessageDigest = MessageDigest.getInstance("SHA-512")
@@ -139,8 +108,6 @@ class MDMActivity : AppCompatActivity() {
                         Uri.parse("package:" + this.packageName)
                 )
                 startActivityForResult(intent, 232)
-            } else {
-                //Permission Granted-System will work
             }
         }
     }

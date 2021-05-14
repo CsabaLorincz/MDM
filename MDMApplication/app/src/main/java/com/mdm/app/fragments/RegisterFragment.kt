@@ -1,5 +1,6 @@
 package com.mdm.app.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,8 +26,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import com.mdm.app.R
 import com.mdm.app.activities.MDMActivity
+import com.mdm.app.extension.hideKeyboard
 
 
 class RegisterFragment: Fragment(), CoroutineScope {
@@ -41,7 +44,6 @@ class RegisterFragment: Fragment(), CoroutineScope {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val repository = ApiRepository()
         val factory = ApiViewModelFactory(repository)
         apiViewModel=ViewModelProvider(requireActivity(), factory).get(ApiViewModel::class.java)
@@ -76,10 +78,8 @@ class RegisterFragment: Fragment(), CoroutineScope {
                 try{
                     val uploadResp=apiViewModel.createUser(userUpload)
                     var check: Boolean = false
-                    Log.d("cerr", "1")
                     if(uploadResp.isSuccessful && uploadResp.body()!=null){
                         check=uploadResp.body()!!
-                        Log.d("cerr", "2")
                         if(check){
                             MDMActivity.setAsUser(name.text.toString())
                             MDMActivity.setAsPw(getSHA512(pw.text.toString()))
@@ -92,17 +92,14 @@ class RegisterFragment: Fragment(), CoroutineScope {
                         }
                         else{
                             Toast.makeText(context, "Failed to create", Toast.LENGTH_SHORT).show()
-                            Log.d("cerr", "3")
                             setLayoutWaiting(false)
                         }
                     }
                     else{
                         Toast.makeText(context, "Failed to create", Toast.LENGTH_SHORT).show()
-                        Log.d("cerr", "3")
                         setLayoutWaiting(false)
                     }
                 }catch(e: Exception){
-                    Log.d("cerr", e.toString())
                     Toast.makeText(context, "Connection error", Toast.LENGTH_SHORT).show()
                     setLayoutWaiting(false)
                 }
@@ -120,6 +117,7 @@ class RegisterFragment: Fragment(), CoroutineScope {
             view?.findViewById<EditText>(R.id.editTextTextPassword)?.visibility= View.INVISIBLE
             view?.findViewById<Button>(R.id.buttonRegister)?.visibility= View.INVISIBLE
             view?.findViewById<Button>(R.id.buttonRegisterBack)?.visibility= View.INVISIBLE
+            view?.hideKeyboard()
         }
         else{
             view?.findViewById<ProgressBar>(R.id.registerProgress)?.visibility= View.INVISIBLE
@@ -131,7 +129,6 @@ class RegisterFragment: Fragment(), CoroutineScope {
             view?.findViewById<Button>(R.id.buttonRegisterBack)?.visibility= View.VISIBLE
         }
     }
-
 
     private fun correctFormatMail(email: String): Boolean{
         val reg=Regex("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}\$")

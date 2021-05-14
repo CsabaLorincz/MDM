@@ -1,13 +1,14 @@
 package com.mdm.app.fragments
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -18,12 +19,11 @@ import com.mdm.app.Database.*
 import com.mdm.app.R
 import com.mdm.app.activities.MDMActivity
 import com.mdm.app.activities.MDMActivity.Data.getSHA512
+import com.mdm.app.extension.hideKeyboard
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+
 class LoginFragment : Fragment(), CoroutineScope {
     private lateinit var apiViewModel: ApiViewModel
     private val userViewModel: UserViewModel by viewModels {
@@ -33,20 +33,15 @@ class LoginFragment : Fragment(), CoroutineScope {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view=inflater.inflate(R.layout.fragment_login, container, false)
         val repository = ApiRepository()
         val factory = ApiViewModelFactory(repository)
         apiViewModel=ViewModelProvider(requireActivity(), factory).get(ApiViewModel::class.java)
-
-
         return view
     }
 
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        Log.d("akarmiiiii", "asdasd")
         super.onViewCreated(view, savedInstanceState)
         val loginB = view.findViewById<Button>(R.id.loginButton)
         loginB.isEnabled = false
@@ -104,7 +99,6 @@ class LoginFragment : Fragment(), CoroutineScope {
 
 
                             val names = userViewModel.getAll()
-                            //Toast.makeText(context, names, Toast.LENGTH_SHORT).show()
 
                             if (names!!.contains(localName)) {
                                 userViewModel.update(localName)
@@ -165,9 +159,6 @@ class LoginFragment : Fragment(), CoroutineScope {
                         MDMActivity.setAsUser(MDMActivity.user)
                         MDMActivity.setAsPw(MDMActivity.pw)
 
-
-
-
                         val databaseAppList=userViewModel.getUserApps(MDMActivity.user)
                         for(i in databaseAppList){
                             if(!appsList.applications.contains(i)){
@@ -224,6 +215,7 @@ class LoginFragment : Fragment(), CoroutineScope {
             view?.findViewById<Button>(R.id.continueButton)?.visibility=INVISIBLE
             view?.findViewById<Button>(R.id.registerButton)?.visibility=INVISIBLE
             view?.findViewById<Button>(R.id.loginButton)?.visibility=INVISIBLE
+            view?.hideKeyboard()
         }
         else{
             view?.findViewById<ProgressBar>(R.id.progressBarLogin)?.visibility=INVISIBLE

@@ -31,8 +31,8 @@ namespace MDMApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IAppRepository, InMemAppsRepository>();
-            services.AddSingleton<IUserRepository, InMemUsersRepository>();
+            services.AddSingleton<IAppRepository, FromDatabaseAppsRepository>();
+            services.AddSingleton<IUserRepository, FromDatabaseUsersRepository>();
             services.AddControllers(options =>{ options.SuppressAsyncSuffixInActionNames=false;});
             services.AddControllers();
             services.Configure<ForwardedHeadersOptions>(options =>

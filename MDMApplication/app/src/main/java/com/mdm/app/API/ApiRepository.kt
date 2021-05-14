@@ -6,7 +6,6 @@ import retrofit2.Response
 
 class ApiRepository {
     suspend fun getApps(name: String, pw: String): Response<List<String>>{
-        Log.d("Siker0", name)
         return Api.retrofitService.getApps(name, pw)
     }
 

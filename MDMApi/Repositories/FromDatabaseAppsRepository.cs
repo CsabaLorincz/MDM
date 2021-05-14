@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MDMApi.Database;
 
 namespace MDMApi.Repositories{
-    public class InMemAppsRepository: IAppRepository
+    public class FromDatabaseAppsRepository: IAppRepository
     {
         DBService dbservice=new DBService();
         public async Task<bool> CreateAppAsync(string name, string password, App app){

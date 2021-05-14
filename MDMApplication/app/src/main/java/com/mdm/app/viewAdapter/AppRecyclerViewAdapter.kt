@@ -1,11 +1,13 @@
 package com.mdm.app.viewAdapter
 
 
+import android.content.Context
 import android.content.pm.PackageInfo
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +21,7 @@ import com.mdm.app.activities.MDMActivity.Data.applications
 import com.mdm.app.activities.MDMActivity.Data.isLoggedInAdmin
 import com.mdm.app.activities.MDMActivity.Data.user
 import com.mdm.app.R
+import com.mdm.app.extension.hideKeyboard
 import kotlinx.coroutines.*
 import java.lang.Exception
 import java.util.*
@@ -98,7 +101,6 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
                         }
                         setLayoutWaiting(false)
                     }catch(e: Exception){
-                        Log.d("holder exc", e.toString())
                         Toast.makeText(c.applicationContext, "Failed to connect", Toast.LENGTH_SHORT).show()
                         setLayoutWaiting(false)
                     }
@@ -125,8 +127,6 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
         val factory = ApiViewModelFactory(repository)
         apiViewModel= ViewModelProvider(c, factory).get(ApiViewModel::class.java)
         userViewModel=uvm
-        Log.d("zzz", cisInit.toString())
-        Log.d("zzz", c.toString())
         notifyDataSetChanged()
     }
     fun setParView(v: View){
@@ -170,6 +170,7 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
             parentView?.findViewById<RecyclerView>(R.id.recycler)?.visibility= View.INVISIBLE
             parentView?.findViewById<SearchView>(R.id.searchView)?.visibility=View.INVISIBLE
             parentView?.findViewById<CheckedTextView>(R.id.check)?.visibility=View.INVISIBLE
+            parentView?.hideKeyboard()
         }
         else{
             parentView?.findViewById<ProgressBar>(R.id.ProgressBarView)?.visibility= View.INVISIBLE
@@ -198,7 +199,6 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
             private val filterResults = FilterResults()
             override fun performFiltering(constraint: CharSequence?): FilterResults {
 
-                //filteredApps.clear()
                 filteredAppsLocal= mutableListOf<PackageInfo>()
 
                 if(MDMActivity.filterFlag==0){
@@ -222,7 +222,6 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
                             datalist.addAll(allAppsLoc)
                         }
                         filteredAppsLocal.addAll(datalist)
-                        Log.d("filter", "3")
                     } else {
                         val filterPattern = constraint.toString().toLowerCase(Locale.ROOT).trim { it <= ' ' }
                         val datalist= mutableListOf<PackageInfo>()
@@ -231,7 +230,6 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
                         }else{
                             datalist.addAll(allAppsLoc)
                         }
-                        Log.d("filter", datalist.size.toString())
                         for (item in 0..datalist.size-1) {
                             if (datalist[item].applicationInfo.loadLabel(c.packageManager).toString().toLowerCase(Locale.ROOT).contains(filterPattern)) {
                                 filteredAppsLocal.add(datalist[item])

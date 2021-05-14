@@ -9,33 +9,23 @@ import kotlinx.coroutines.launch
 
 class UserViewModel(private val repository: UserRepository) : ViewModel() {
 
-    //val allUsers: List<String> = getAll()
     fun getAll(): List<String> {
         return repository.getAll()
     }
 
     fun insert(word: User) = viewModelScope.launch {
         repository.insert(word)
-        Log.d("as error", "insert")
     }
 
-    fun deleteAll()=viewModelScope.launch { repository.deleteAll()
-        Log.d("as error", "deletall")
-    }
+    fun deleteAll()=viewModelScope.launch { repository.deleteAll() }
 
-    fun updateAll()=viewModelScope.launch { repository.updateAll()
-        Log.d("as error", "updateall")
-    }
+    fun updateAll()=viewModelScope.launch { repository.updateAll() }
 
-    fun updateAllBut(name: String)=viewModelScope.launch { repository.updateAllBut(name)
-        Log.d("as error", "updateallbut")
-    }
+    fun updateAllBut(name: String)=viewModelScope.launch { repository.updateAllBut(name) }
 
     fun getCurrent()=viewModelScope.launch { repository.getCurrent()}
 
-    fun update(name: String)=viewModelScope.launch{repository.update(name)
-        Log.d("as error", "update")
-    }
+    fun update(name: String)=viewModelScope.launch{repository.update(name) }
 
     //UserApps
     fun getUserApps(userName: String):List<String>{

@@ -6,7 +6,6 @@ import com.mdm.app.activities.MDMActivity
 
 class UserRepository(private val UserDao: UserDao) {
 
-    //val allUsers: List<String> =getAll()
     fun getAll(): List<String> {
         Log.d("!!!4", "asd")
         return UserDao.getAllUsers()
@@ -30,7 +29,7 @@ class UserRepository(private val UserDao: UserDao) {
     }
     suspend fun getCurrent(){
         val x=UserDao.getCurrentUser()
-        if(x==null){
+        if(x==null || x.name==""){
             MDMActivity.setAsUser("")
             MDMActivity.setAsPw("")
         }

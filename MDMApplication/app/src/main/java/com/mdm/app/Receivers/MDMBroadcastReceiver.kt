@@ -11,7 +11,6 @@ class MDMBroadcastReceiver: BroadcastReceiver() {
         if(intent?.action.equals(Intent.ACTION_BOOT_COMPLETED)){
             val i = Intent(context, MDMActivity::class.java)
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            Toast.makeText(context, "It works", Toast.LENGTH_LONG).show()
             context!!.startActivity(i)
         }
     }

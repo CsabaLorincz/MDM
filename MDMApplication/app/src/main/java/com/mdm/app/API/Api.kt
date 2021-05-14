@@ -23,7 +23,6 @@ interface ApiService{
     suspend fun deletePolicy(@Path("name") name: String, @Path("pw") pw: String, @Path("appName") appName: String): Response<Boolean>
 }
 object Api {
-    //private const val BASE_URL= "http://192.168.0.10/MdmApi/index.php/"
     private const val BASE_URL= "http://192.168.0.10:5000/"
 
     var gson = GsonBuilder()

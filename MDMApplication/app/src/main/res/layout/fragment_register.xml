@@ -12,7 +12,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="68dp"
-        android:text="Registration"
+        android:text="@string/registration"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +24,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="27dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/name"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerText" />
@@ -37,7 +37,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="25dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
@@ -50,7 +50,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="34dp"
         android:ems="10"
-        android:hint="password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
@@ -74,7 +74,7 @@
         android:layout_marginTop="7dp"
         android:layout_marginEnd="136dp"
         android:layout_marginRight="136dp"
-        android:text="Register"
+        android:text="@string/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerProgress" />
 
@@ -87,7 +87,7 @@
         android:layout_marginTop="11dp"
         android:layout_marginEnd="143dp"
         android:layout_marginRight="143dp"
-        android:text="Back"
+        android:text="@string/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonRegister" />

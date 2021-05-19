@@ -10,10 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckedTextView
-import android.widget.SearchView
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -26,8 +23,11 @@ import com.mdm.app.Database.UserViewModel
 import com.mdm.app.Database.UserViewModelFactory
 import com.mdm.app.R
 import com.mdm.app.activities.MDMActivity
+import com.mdm.app.activities.MDMActivity.Data.allowRegister
 import com.mdm.app.activities.MDMActivity.Data.checked
 import com.mdm.app.activities.MDMActivity.Data.filterFlag
+import com.mdm.app.activities.MDMActivity.Data.isLoggedInAdmin
+import com.mdm.app.activities.MDMActivity.Data.pageNum
 import com.mdm.app.viewAdapter.AppRecyclerViewAdapter
 import kotlin.system.exitProcess
 
@@ -120,6 +120,7 @@ class AppListFragment : Fragment() {
         view.findViewById<TextView>(R.id.yourNameView).text=nameStr
 
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
+            pageNum=1
             view.findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
 
@@ -167,6 +168,29 @@ class AppListFragment : Fragment() {
                 true
             }
         }
+        val mode=view.findViewById<CheckBox>(R.id.checkMode)
+        if(isLoggedInAdmin){
+            mode.visibility=View.VISIBLE
+        }
+        else{
+            mode.visibility=View.INVISIBLE
+        }
+        mode.isChecked= allowRegister
+
+        mode.setOnClickListener{
+            allowRegister = !allowRegister
+        }
+
+        appList.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if(!recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN)){
+                    Log.d("pgnum", pageNum.toString())
+                    pageNum+=1
+                    appAdapter.setNotify()
+                }
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
         return view
     }
 

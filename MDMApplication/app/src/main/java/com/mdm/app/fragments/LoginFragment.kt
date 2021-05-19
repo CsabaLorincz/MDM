@@ -18,6 +18,7 @@ import com.mdm.app.API.*
 import com.mdm.app.Database.*
 import com.mdm.app.R
 import com.mdm.app.activities.MDMActivity
+import com.mdm.app.activities.MDMActivity.Data.allowRegister
 import com.mdm.app.activities.MDMActivity.Data.getSHA512
 import com.mdm.app.extension.hideKeyboard
 import kotlinx.coroutines.*
@@ -193,10 +194,9 @@ class LoginFragment : Fragment(), CoroutineScope {
                         view.findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
                 }
 
+                }
             }
-
-
-            }
+            view.findViewById<Button>(R.id.registerButton).isEnabled= allowRegister
         }
 
 

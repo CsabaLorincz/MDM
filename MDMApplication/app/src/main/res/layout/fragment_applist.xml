@@ -37,7 +37,7 @@
             android:layout_marginTop="36dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="Back"
+            android:text="@string/back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/yourNameView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,14 +47,14 @@
             android:layout_width="144dp"
             android:layout_height="87dp"
             android:layout_marginBottom="252dp"
-            android:text="Exit"
+            android:text="@string/exit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.142"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recycler"
-            app:layout_constraintVertical_bias="0.991" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/yourNameView"
@@ -101,10 +101,26 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="7dp"
             android:gravity="center"
-            android:text="Show only restricted"
+            android:text="@string/show_only_restricted"
             app:layout_constraintBottom_toTopOf="@+id/recycler"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/searchView"
             app:layout_constraintTop_toBottomOf="@+id/backButton" />
+
+        <CheckBox
+            android:id="@+id/checkMode"
+            android:layout_width="119dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="266dp"
+            android:text="@string/allow_new_registration"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/endButton"
+            app:layout_constraintTop_toBottomOf="@+id/recycler" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

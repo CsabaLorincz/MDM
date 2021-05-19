@@ -99,6 +99,9 @@ class MDMActivity : AppCompatActivity() {
         }
         var filterFlag=0
         var checked=false
+        var allowRegister=false
+        var pageNum=1
+        val pgVal=15
     }
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -21,6 +21,7 @@ import com.mdm.app.activities.MDMActivity.Data.applications
 import com.mdm.app.activities.MDMActivity.Data.isLoggedInAdmin
 import com.mdm.app.activities.MDMActivity.Data.user
 import com.mdm.app.R
+import com.mdm.app.activities.MDMActivity.Data.pgVal
 import com.mdm.app.extension.hideKeyboard
 import kotlinx.coroutines.*
 import java.lang.Exception
@@ -111,7 +112,14 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
 
     }
 
-    override fun getItemCount(): Int = filteredApps.size
+    override fun getItemCount(): Int = smallest(filteredApps.size, MDMActivity.pgVal*MDMActivity.pageNum)
+
+    fun smallest(a: Int, b: Int):Int
+    {
+        if(a>b)
+            return b
+        return a
+    }
 
     inner class AppViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val appName: TextView=view.findViewById(R.id.app_name)
@@ -140,6 +148,9 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
         filteredApps.clear()
         filteredApps.addAll(apps)
         removeThis()
+        notifyDataSetChanged()
+    }
+    public fun setNotify(){
         notifyDataSetChanged()
     }
     private fun allowed(packageInfo: PackageInfo):Boolean{

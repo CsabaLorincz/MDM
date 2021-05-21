@@ -196,7 +196,12 @@ class LoginFragment : Fragment(), CoroutineScope {
 
                 }
             }
-            view.findViewById<Button>(R.id.registerButton).isEnabled= allowRegister
+            if(continueButton.isEnabled){
+                view.findViewById<Button>(R.id.registerButton).isEnabled= allowRegister
+            }
+            else{
+                view.findViewById<Button>(R.id.registerButton).isEnabled= true
+            }
         }
 
 

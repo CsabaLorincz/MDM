@@ -14,6 +14,13 @@ namespace MDMApi.Database
                 return db.Users.Any(x => x.Name == name && x.Password==password);
             }
         }
+        
+        private bool validUser(string name){
+            using (var db = new SQLiteDBContext())
+            {
+                return db.Users.Any(x => x.Name == name);
+            }
+        }
         private int getUserId(string name){
             using (var db = new SQLiteDBContext())
             {
@@ -50,11 +57,20 @@ namespace MDMApi.Database
  
         }
         
+        private bool emailCheck(string email){
+            using (var db = new SQLiteDBContext())
+            {
+                return db.Users.Any(x => x.Email == email);
+            }
+        }
+
         public bool AddUser(User user){
-            if(validUser(user.Name, user.Password))
+            if(validUser(user.Name))
             {
                 return false;
             }
+            if(emailCheck(user.Email))
+                return false;
             using (var db = new SQLiteDBContext())
             {
                 db.Users.Add(user);
@@ -138,7 +154,10 @@ namespace MDMApi.Database
             if(!IsAppAlreadyPresent(appName)){
                 return false;
             }
+
             Policy pol=getPolicy(getUserId(name), getAppId(appName));
+            if(pol==null)
+                return false;
             using (var db = new SQLiteDBContext())
             {
                 db.Policies.Remove(pol);

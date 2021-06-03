@@ -7,7 +7,6 @@ import com.mdm.app.activities.MDMActivity
 class UserRepository(private val UserDao: UserDao) {
 
     fun getAll(): List<String> {
-        Log.d("!!!4", "asd")
         return UserDao.getAllUsers()
     }
     @Suppress("RedundantSuspendModifier")

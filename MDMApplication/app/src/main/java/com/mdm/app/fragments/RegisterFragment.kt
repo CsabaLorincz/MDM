@@ -19,7 +19,6 @@ import com.mdm.app.Database.MDMDatabaseApp
 import com.mdm.app.Database.User
 import com.mdm.app.Database.UserViewModel
 import com.mdm.app.Database.UserViewModelFactory
-import com.mdm.app.activities.MDMActivity.Data.getSHA512
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -29,6 +28,7 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import com.mdm.app.R
 import com.mdm.app.activities.MDMActivity
+import com.mdm.app.extension.getSHA512
 import com.mdm.app.extension.hideKeyboard
 
 

@@ -19,7 +19,7 @@ import com.mdm.app.Database.*
 import com.mdm.app.R
 import com.mdm.app.activities.MDMActivity
 import com.mdm.app.activities.MDMActivity.Data.allowRegister
-import com.mdm.app.activities.MDMActivity.Data.getSHA512
+import com.mdm.app.extension.getSHA512
 import com.mdm.app.extension.hideKeyboard
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext

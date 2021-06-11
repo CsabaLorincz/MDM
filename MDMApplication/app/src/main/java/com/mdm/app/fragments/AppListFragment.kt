@@ -69,14 +69,14 @@ class AppListFragment : Fragment() {
         }
 
 
-        if(deviceManager!!.isDeviceOwnerApp("")) {
+        if(deviceManager!!.isDeviceOwnerApp("com.mdm.app")) {
             if (deviceManager!!.isAdminActive(compName!!)) {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     deviceManager!!.setLockTaskPackages(compName!!, APP_PACKAGES.toTypedArray())
                 }
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
                     deviceManager!!.setLockTaskFeatures(compName!!, DevicePolicyManager.LOCK_TASK_FEATURE_HOME or
-                            DevicePolicyManager.LOCK_TASK_FEATURE_OVERVIEW)
+                            DevicePolicyManager.LOCK_TASK_FEATURE_OVERVIEW or DevicePolicyManager.LOCK_TASK_FEATURE_SYSTEM_INFO)
                 }
             }
         }
@@ -87,7 +87,7 @@ class AppListFragment : Fragment() {
                 }
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
                     deviceManager!!.setLockTaskFeatures(compName!!, DevicePolicyManager.LOCK_TASK_FEATURE_HOME or
-                            DevicePolicyManager.LOCK_TASK_FEATURE_OVERVIEW)
+                            DevicePolicyManager.LOCK_TASK_FEATURE_OVERVIEW or DevicePolicyManager.LOCK_TASK_FEATURE_SYSTEM_INFO)
                 }
             }
         }

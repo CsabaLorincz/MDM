@@ -22,7 +22,9 @@ import com.mdm.app.activities.MDMActivity.Data.isLoggedInAdmin
 import com.mdm.app.activities.MDMActivity.Data.user
 import com.mdm.app.R
 import com.mdm.app.activities.MDMActivity.Data.pgVal
+import com.mdm.app.extension.allowed
 import com.mdm.app.extension.hideKeyboard
+import com.mdm.app.extension.setLayoutWaiting
 import kotlinx.coroutines.*
 import java.lang.Exception
 import java.util.*
@@ -55,7 +57,7 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
         if(cisInit) {
             holder.appName.text = filteredApps[position].applicationInfo.loadLabel(c.packageManager).toString()
             holder.statButton.isEnabled = adminAccess
-            holder.allowed=allowed(filteredApps[position])
+            holder.allowed=c.allowed(filteredApps[position])
             if(holder.allowed) {
                 holder.statButton.setImageResource(android.R.drawable.ic_input_add)
 
@@ -153,19 +155,12 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
     public fun setNotify(){
         notifyDataSetChanged()
     }
-    private fun allowed(packageInfo: PackageInfo):Boolean{
-        val packageManager=(c as MDMActivity).packageManager
-        val name=packageInfo.applicationInfo.loadLabel(packageManager).toString()
-        if(applications.applications.contains(name))
-            return false
-        return true
-    }
 
     private fun getAllNotAllowed():MutableList<PackageInfo>{
         val list= mutableListOf<PackageInfo>()
         if(cisInit)
         for(i in allAppsLoc){
-            if(!allowed(i)){
+            if(!c.allowed(i)){
                 list.add(i)
             }
         }
@@ -175,22 +170,11 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
     private fun setLayoutWaiting(value: Boolean){
         if(value){
             parentView?.findViewById<ProgressBar>(R.id.ProgressBarView)?.visibility= View.VISIBLE
-            parentView?.findViewById<Button>(R.id.backButton)?.visibility= View.INVISIBLE
-            parentView?.findViewById<Button>(R.id.endButton)?.visibility= View.INVISIBLE
-            parentView?.findViewById<TextView>(R.id.yourNameView)?.visibility= View.INVISIBLE
-            parentView?.findViewById<RecyclerView>(R.id.recycler)?.visibility= View.INVISIBLE
-            parentView?.findViewById<SearchView>(R.id.searchView)?.visibility=View.INVISIBLE
-            parentView?.findViewById<CheckedTextView>(R.id.check)?.visibility=View.INVISIBLE
-            parentView?.hideKeyboard()
+            parentView.setLayoutWaiting(value)
         }
         else{
             parentView?.findViewById<ProgressBar>(R.id.ProgressBarView)?.visibility= View.INVISIBLE
-            parentView?.findViewById<Button>(R.id.backButton)?.visibility= View.VISIBLE
-            parentView?.findViewById<Button>(R.id.endButton)?.visibility= View.VISIBLE
-            parentView?.findViewById<TextView>(R.id.yourNameView)?.visibility= View.VISIBLE
-            parentView?.findViewById<RecyclerView>(R.id.recycler)?.visibility= View.VISIBLE
-            parentView?.findViewById<SearchView>(R.id.searchView)?.visibility=View.VISIBLE
-            parentView?.findViewById<CheckedTextView>(R.id.check)?.visibility=View.VISIBLE
+            parentView.setLayoutWaiting(value)
         }
 
     }

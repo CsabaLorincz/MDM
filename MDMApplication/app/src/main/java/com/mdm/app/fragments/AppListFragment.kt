@@ -28,6 +28,7 @@ import com.mdm.app.activities.MDMActivity.Data.checked
 import com.mdm.app.activities.MDMActivity.Data.filterFlag
 import com.mdm.app.activities.MDMActivity.Data.isLoggedInAdmin
 import com.mdm.app.activities.MDMActivity.Data.pageNum
+import com.mdm.app.extension.allowed
 import com.mdm.app.viewAdapter.AppRecyclerViewAdapter
 import kotlin.system.exitProcess
 
@@ -64,7 +65,7 @@ class AppListFragment : Fragment() {
         val APP_PACKAGES = ArrayList<String>()
         for (i in MDMActivity.getAllApps().indices) {
             val packageInfo = MDMActivity.getAllApps()[i]
-            if(allowed(packageInfo))
+            if((activity as MDMActivity).allowed(packageInfo))
                 APP_PACKAGES.add(packageInfo.applicationInfo.packageName)
         }
 
@@ -199,12 +200,12 @@ class AppListFragment : Fragment() {
         appAdapter.setParView(view)
     }
 
-    private fun allowed(packageInfo: PackageInfo):Boolean{
+    /*private fun allowed(packageInfo: PackageInfo):Boolean{
         val packageManager=(activity as MDMActivity).packageManager
         val name=packageInfo.applicationInfo.loadLabel(packageManager).toString()
         if(MDMActivity.applications.applications.contains(name))
             return false
         return true
-    }
+    }*/
 
 }

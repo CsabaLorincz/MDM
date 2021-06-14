@@ -21,6 +21,7 @@ import com.mdm.app.activities.MDMActivity
 import com.mdm.app.activities.MDMActivity.Data.allowRegister
 import com.mdm.app.extension.getSHA512
 import com.mdm.app.extension.hideKeyboard
+import com.mdm.app.extension.setLayoutWaiting
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -47,9 +48,9 @@ class LoginFragment : Fragment(), CoroutineScope {
         val loginB = view.findViewById<Button>(R.id.loginButton)
         loginB.isEnabled = false
 
-        setLayoutWaiting(true)
+        view.setLayoutWaiting(true)
         userViewModel.getCurrent()
-        setLayoutWaiting(false)
+        view.setLayoutWaiting(false)
         val continueButton=view.findViewById<Button>(R.id.continueButton)
         continueButton.isEnabled = !(MDMActivity.user=="" || MDMActivity.pw=="")
         if(continueButton.isEnabled){
@@ -75,7 +76,7 @@ class LoginFragment : Fragment(), CoroutineScope {
 
         loginB.setOnClickListener {
             launch {
-                setLayoutWaiting(true)
+                view.setLayoutWaiting(true)
                 val localName=name.text.toString()
                 val localPw=getSHA512(pw.text.toString())
                 try{
@@ -87,7 +88,7 @@ class LoginFragment : Fragment(), CoroutineScope {
                             name.text.clear()
                             pw.text.clear()
                             Toast.makeText(context, "Login Error", Toast.LENGTH_SHORT).show()
-                            setLayoutWaiting(false)
+                            view.setLayoutWaiting(false)
                         }
                         else{
                             MDMActivity.setData(appsList)
@@ -133,14 +134,14 @@ class LoginFragment : Fragment(), CoroutineScope {
                         name.text.clear()
                         pw.text.clear()
                         Toast.makeText(context, "Connection Error", Toast.LENGTH_SHORT).show()
-                        setLayoutWaiting(false)
+                        view.setLayoutWaiting(false)
                     }
 
                 }catch(e: java.lang.Exception){
                     name.text.clear()
                     pw.text.clear()
                     Toast.makeText(context, "Connection Error", Toast.LENGTH_SHORT).show()
-                    setLayoutWaiting(false)
+                    view.setLayoutWaiting(false)
                 }
 
             }
@@ -148,7 +149,7 @@ class LoginFragment : Fragment(), CoroutineScope {
 
         continueButton.setOnClickListener {
             launch{
-                setLayoutWaiting(true)
+                view.setLayoutWaiting(true)
                 try{
                     val appsResponse=apiViewModel.getApps(MDMActivity.user, MDMActivity.pw)
                     lateinit var appsList: Applications
@@ -211,7 +212,7 @@ class LoginFragment : Fragment(), CoroutineScope {
 
 
 
-    private fun setLayoutWaiting(value: Boolean){
+    /*private fun setLayoutWaiting(value: Boolean){
         if(value){
             view?.findViewById<ProgressBar>(R.id.progressBarLogin)?.visibility=VISIBLE
             view?.findViewById<TextView>(R.id.textView)?.visibility=INVISIBLE
@@ -231,6 +232,6 @@ class LoginFragment : Fragment(), CoroutineScope {
             view?.findViewById<Button>(R.id.registerButton)?.visibility=VISIBLE
             view?.findViewById<Button>(R.id.loginButton)?.visibility=VISIBLE
         }
-    }
+    }*/
 
 }

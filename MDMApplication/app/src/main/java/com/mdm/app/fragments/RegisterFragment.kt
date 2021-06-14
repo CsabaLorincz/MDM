@@ -11,10 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.mdm.app.API.ApiRepository
-import com.mdm.app.API.ApiViewModel
-import com.mdm.app.API.ApiViewModelFactory
-import com.mdm.app.API.UserUpload
 import com.mdm.app.Database.MDMDatabaseApp
 import com.mdm.app.Database.User
 import com.mdm.app.Database.UserViewModel
@@ -26,10 +22,12 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
+import com.mdm.app.API.*
 import com.mdm.app.R
 import com.mdm.app.activities.MDMActivity
 import com.mdm.app.extension.getSHA512
 import com.mdm.app.extension.hideKeyboard
+import com.mdm.app.extension.setLayoutWaiting
 
 
 class RegisterFragment: Fragment(), CoroutineScope {
@@ -73,7 +71,7 @@ class RegisterFragment: Fragment(), CoroutineScope {
 
         regButton.setOnClickListener {
             launch {
-                setLayoutWaiting(true)
+                view.setLayoutWaiting(true)
                 val userUpload=UserUpload(0, name.text.toString(), email.text.toString(), getSHA512(pw.text.toString()))
                 try{
                     val uploadResp=apiViewModel.createUser(userUpload)
@@ -84,6 +82,7 @@ class RegisterFragment: Fragment(), CoroutineScope {
                             MDMActivity.setAsUser(name.text.toString())
                             MDMActivity.setAsPw(getSHA512(pw.text.toString()))
                             MDMActivity.setLogin(true)
+                            MDMActivity.setData(Applications(mutableListOf()))
                             userViewModel.updateAll()
                             userViewModel.insert(User(0, name.text.toString(), getSHA512(pw.text.toString()), true))
                             if(view.findNavController().currentDestination?.id == R.id.registerFragment)
@@ -92,23 +91,23 @@ class RegisterFragment: Fragment(), CoroutineScope {
                         }
                         else{
                             Toast.makeText(context, "Failed to create", Toast.LENGTH_SHORT).show()
-                            setLayoutWaiting(false)
+                            view.setLayoutWaiting(false)
                         }
                     }
                     else{
                         Toast.makeText(context, "Failed to create", Toast.LENGTH_SHORT).show()
-                        setLayoutWaiting(false)
+                        view.setLayoutWaiting(false)
                     }
                 }catch(e: Exception){
                     Toast.makeText(context, "Connection error", Toast.LENGTH_SHORT).show()
-                    setLayoutWaiting(false)
+                    view.setLayoutWaiting(false)
                 }
 
             }
         }
     }
 
-    private fun setLayoutWaiting(value: Boolean){
+    /*private fun setLayoutWaiting(value: Boolean){
         if(value){
             view?.findViewById<ProgressBar>(R.id.registerProgress)?.visibility= View.VISIBLE
             view?.findViewById<TextView>(R.id.registerText)?.visibility= View.INVISIBLE
@@ -128,7 +127,7 @@ class RegisterFragment: Fragment(), CoroutineScope {
             view?.findViewById<Button>(R.id.buttonRegister)?.visibility= View.VISIBLE
             view?.findViewById<Button>(R.id.buttonRegisterBack)?.visibility= View.VISIBLE
         }
-    }
+    }*/
 
     private fun correctFormatMail(email: String): Boolean{
         val reg=Regex("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}\$")

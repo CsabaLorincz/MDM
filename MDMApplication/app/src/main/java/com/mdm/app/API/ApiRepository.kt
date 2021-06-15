@@ -1,6 +1,5 @@
 package com.mdm.app.API
 
-import android.util.Log
 import retrofit2.Response
 
 

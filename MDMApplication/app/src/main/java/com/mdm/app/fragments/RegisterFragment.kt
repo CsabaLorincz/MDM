@@ -1,6 +1,5 @@
 package com.mdm.app.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,13 +19,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
-import android.util.Log
-import android.view.inputmethod.InputMethodManager
 import com.mdm.app.API.*
 import com.mdm.app.R
 import com.mdm.app.activities.MDMActivity
 import com.mdm.app.extension.getSHA512
-import com.mdm.app.extension.hideKeyboard
 import com.mdm.app.extension.setLayoutWaiting
 
 

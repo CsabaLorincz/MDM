@@ -1,9 +1,8 @@
-package com.mdm.app.Receivers
+package com.mdm.app.receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import com.mdm.app.activities.MDMActivity
 
 class MDMBroadcastReceiver: BroadcastReceiver() {

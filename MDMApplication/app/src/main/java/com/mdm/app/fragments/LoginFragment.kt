@@ -1,14 +1,10 @@
 package com.mdm.app.fragments
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -20,7 +16,6 @@ import com.mdm.app.R
 import com.mdm.app.activities.MDMActivity
 import com.mdm.app.activities.MDMActivity.Data.allowRegister
 import com.mdm.app.extension.getSHA512
-import com.mdm.app.extension.hideKeyboard
 import com.mdm.app.extension.setLayoutWaiting
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext

@@ -1,13 +1,10 @@
 package com.mdm.app.viewAdapter
 
 
-import android.content.Context
 import android.content.pm.PackageInfo
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -21,9 +18,7 @@ import com.mdm.app.activities.MDMActivity.Data.applications
 import com.mdm.app.activities.MDMActivity.Data.isLoggedInAdmin
 import com.mdm.app.activities.MDMActivity.Data.user
 import com.mdm.app.R
-import com.mdm.app.activities.MDMActivity.Data.pgVal
 import com.mdm.app.extension.allowed
-import com.mdm.app.extension.hideKeyboard
 import com.mdm.app.extension.setLayoutWaiting
 import kotlinx.coroutines.*
 import java.lang.Exception
@@ -72,7 +67,7 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
             holder.statButton.setOnClickListener {
                 launch {
                     try{
-                        setLayoutWaiting(true)
+                        parentView.setLayoutWaiting(true)
                         var bV = if(holder.allowed){
                             apiViewModel.createPolicy(MDMActivity.user, MDMActivity.pw, holder.appName.text.toString())
                         }else{
@@ -102,10 +97,10 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
                         else{
                             Toast.makeText(c.applicationContext, "Task unsuccessful", Toast.LENGTH_SHORT).show()
                         }
-                        setLayoutWaiting(false)
+                        parentView.setLayoutWaiting(false)
                     }catch(e: Exception){
                         Toast.makeText(c.applicationContext, "Failed to connect", Toast.LENGTH_SHORT).show()
-                        setLayoutWaiting(false)
+                        parentView.setLayoutWaiting(false)
                     }
                 }
 
@@ -167,17 +162,6 @@ class AppRecyclerViewAdapter : RecyclerView.Adapter<AppRecyclerViewAdapter.AppVi
         return list
     }
 
-    private fun setLayoutWaiting(value: Boolean){
-        if(value){
-            parentView?.findViewById<ProgressBar>(R.id.ProgressBarView)?.visibility= View.VISIBLE
-            parentView.setLayoutWaiting(value)
-        }
-        else{
-            parentView?.findViewById<ProgressBar>(R.id.ProgressBarView)?.visibility= View.INVISIBLE
-            parentView.setLayoutWaiting(value)
-        }
-
-    }
 
     private fun removeThis(){
         if(cisInit)

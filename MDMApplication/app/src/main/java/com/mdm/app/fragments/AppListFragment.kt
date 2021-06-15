@@ -2,10 +2,8 @@ package com.mdm.app.fragments
 
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
-import android.content.pm.PackageInfo
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +12,6 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mdm.app.API.Applications
@@ -27,6 +24,7 @@ import com.mdm.app.activities.MDMActivity.Data.allowRegister
 import com.mdm.app.activities.MDMActivity.Data.checked
 import com.mdm.app.activities.MDMActivity.Data.filterFlag
 import com.mdm.app.activities.MDMActivity.Data.isLoggedInAdmin
+import com.mdm.app.activities.MDMActivity.Data.ownerState
 import com.mdm.app.activities.MDMActivity.Data.pageNum
 import com.mdm.app.extension.allowed
 import com.mdm.app.viewAdapter.AppRecyclerViewAdapter
@@ -61,16 +59,17 @@ class AppListFragment : Fragment() {
         compName=(activity as MDMActivity).getComp()
 
 
-
         val APP_PACKAGES = ArrayList<String>()
         for (i in MDMActivity.getAllApps().indices) {
             val packageInfo = MDMActivity.getAllApps()[i]
             if((activity as MDMActivity).allowed(packageInfo))
                 APP_PACKAGES.add(packageInfo.applicationInfo.packageName)
         }
-
-
+        val adbError=view.findViewById<TextView>(R.id.DPMErrorView)
+        adbError.visibility=View.INVISIBLE
         if(deviceManager!!.isDeviceOwnerApp("com.mdm.app")) {
+            adbError.visibility=View.INVISIBLE
+            ownerState=true
             if (deviceManager!!.isAdminActive(compName!!)) {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     deviceManager!!.setLockTaskPackages(compName!!, APP_PACKAGES.toTypedArray())
@@ -80,17 +79,12 @@ class AppListFragment : Fragment() {
                             DevicePolicyManager.LOCK_TASK_FEATURE_OVERVIEW or DevicePolicyManager.LOCK_TASK_FEATURE_SYSTEM_INFO)
                 }
             }
+
         }
         else{
-            if(deviceManager!!.isAdminActive(compName!!)){
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    deviceManager!!.setLockTaskPackages(compName!!, APP_PACKAGES.toTypedArray())
-                }
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-                    deviceManager!!.setLockTaskFeatures(compName!!, DevicePolicyManager.LOCK_TASK_FEATURE_HOME or
-                            DevicePolicyManager.LOCK_TASK_FEATURE_OVERVIEW or DevicePolicyManager.LOCK_TASK_FEATURE_SYSTEM_INFO)
-                }
-            }
+            ownerState=false
+            adbError.visibility=View.VISIBLE
+            Toast.makeText(context, "Please run the provided adb code to set device owner", Toast.LENGTH_LONG).show()
         }
 
 
@@ -185,7 +179,6 @@ class AppListFragment : Fragment() {
         appList.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if(!recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN)){
-                    Log.d("pgnum", pageNum.toString())
                     pageNum+=1
                     appAdapter.setNotify()
                 }

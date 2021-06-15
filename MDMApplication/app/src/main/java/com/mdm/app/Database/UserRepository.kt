@@ -1,6 +1,5 @@
 package com.mdm.app.Database
 
-import android.util.Log
 import androidx.annotation.WorkerThread
 import com.mdm.app.activities.MDMActivity
 

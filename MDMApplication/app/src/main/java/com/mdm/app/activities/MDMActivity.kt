@@ -9,20 +9,13 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import com.mdm.app.API.Applications
-import com.mdm.app.Database.MDMDatabaseApp
-import com.mdm.app.Database.UserViewModel
-import com.mdm.app.Database.UserViewModelFactory
 import com.mdm.app.R
-import com.mdm.app.Receivers.AdminManager
-import java.math.BigInteger
-import java.security.MessageDigest
+import com.mdm.app.receivers.AdminManager
+
+
 
 class MDMActivity : AppCompatActivity() {
     var deviceManager: DevicePolicyManager? = null
@@ -79,6 +72,7 @@ class MDMActivity : AppCompatActivity() {
         fun setAsUser(name: String){
             user =name
         }
+
         var pw=""
         fun setAsPw(pass: String){
             pw =pass
@@ -89,6 +83,7 @@ class MDMActivity : AppCompatActivity() {
         var allowRegister=false
         var pageNum=1
         val pgVal=15
+        var ownerState=false
     }
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

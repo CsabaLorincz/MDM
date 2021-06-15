@@ -1,4 +1,4 @@
-package com.mdm.app.Receivers
+package com.mdm.app.receivers
 
 import android.app.admin.DeviceAdminReceiver
 

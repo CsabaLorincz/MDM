@@ -1,13 +1,13 @@
 package com.mdm.app.extension
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.forEach
 import androidx.core.widget.NestedScrollView
-import androidx.recyclerview.widget.RecyclerView
 import com.mdm.app.R
+import com.mdm.app.activities.MDMActivity
+
 
 public fun View.setLayoutWaiting(value: Boolean){
     var forProgress=View.INVISIBLE
@@ -25,8 +25,13 @@ public fun View.setLayoutWaiting(value: Boolean){
         if(it is ProgressBar){
             it.visibility=forProgress
         }
-        else
-            it.visibility=forElse
+        else{
+            if(!(MDMActivity.ownerState && it.id==R.id.DPMErrorView)){
+                it.visibility=forElse
+            }
+
+        }
+
     }
 
 

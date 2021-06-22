@@ -200,33 +200,6 @@ class LoginFragment : Fragment(), CoroutineScope {
             }
         }
 
-
-
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + Job()
-
-
-
-    /*private fun setLayoutWaiting(value: Boolean){
-        if(value){
-            view?.findViewById<ProgressBar>(R.id.progressBarLogin)?.visibility=VISIBLE
-            view?.findViewById<TextView>(R.id.textView)?.visibility=INVISIBLE
-            view?.findViewById<EditText>(R.id.editName)?.visibility=INVISIBLE
-            view?.findViewById<EditText>(R.id.editPassword)?.visibility=INVISIBLE
-            view?.findViewById<Button>(R.id.continueButton)?.visibility=INVISIBLE
-            view?.findViewById<Button>(R.id.registerButton)?.visibility=INVISIBLE
-            view?.findViewById<Button>(R.id.loginButton)?.visibility=INVISIBLE
-            view?.hideKeyboard()
-        }
-        else{
-            view?.findViewById<ProgressBar>(R.id.progressBarLogin)?.visibility=INVISIBLE
-            view?.findViewById<TextView>(R.id.textView)?.visibility=VISIBLE
-            view?.findViewById<EditText>(R.id.editName)?.visibility=VISIBLE
-            view?.findViewById<EditText>(R.id.editPassword)?.visibility=VISIBLE
-            view?.findViewById<Button>(R.id.continueButton)?.visibility=VISIBLE
-            view?.findViewById<Button>(R.id.registerButton)?.visibility=VISIBLE
-            view?.findViewById<Button>(R.id.loginButton)?.visibility=VISIBLE
-        }
-    }*/
-
 }

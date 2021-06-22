@@ -33,7 +33,4 @@ public fun View.setLayoutWaiting(value: Boolean){
         }
 
     }
-
-
-
 }

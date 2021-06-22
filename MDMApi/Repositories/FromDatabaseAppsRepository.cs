@@ -14,7 +14,7 @@ namespace MDMApi.Repositories{
             return await Task.FromResult(b);
         }
         public async Task<IEnumerable<string>> GetAppsAsync(string name, string password){
-            List<string> lis=dbservice.getAppsFrDb(name, password);
+            List<string> lis=dbservice.GetAppsFrDb(name, password);
             return await Task.FromResult(lis);
         }
         public async Task<bool> DeletePolicyAsync(string name, string password, string appName){

@@ -103,28 +103,6 @@ class RegisterFragment: Fragment(), CoroutineScope {
         }
     }
 
-    /*private fun setLayoutWaiting(value: Boolean){
-        if(value){
-            view?.findViewById<ProgressBar>(R.id.registerProgress)?.visibility= View.VISIBLE
-            view?.findViewById<TextView>(R.id.registerText)?.visibility= View.INVISIBLE
-            view?.findViewById<EditText>(R.id.editTextTextPersonName)?.visibility= View.INVISIBLE
-            view?.findViewById<EditText>(R.id.editTextTextEmailAddress)?.visibility= View.INVISIBLE
-            view?.findViewById<EditText>(R.id.editTextTextPassword)?.visibility= View.INVISIBLE
-            view?.findViewById<Button>(R.id.buttonRegister)?.visibility= View.INVISIBLE
-            view?.findViewById<Button>(R.id.buttonRegisterBack)?.visibility= View.INVISIBLE
-            view?.hideKeyboard()
-        }
-        else{
-            view?.findViewById<ProgressBar>(R.id.registerProgress)?.visibility= View.INVISIBLE
-            view?.findViewById<TextView>(R.id.registerText)?.visibility= View.VISIBLE
-            view?.findViewById<EditText>(R.id.editTextTextPersonName)?.visibility= View.VISIBLE
-            view?.findViewById<EditText>(R.id.editTextTextEmailAddress)?.visibility= View.VISIBLE
-            view?.findViewById<EditText>(R.id.editTextTextPassword)?.visibility= View.VISIBLE
-            view?.findViewById<Button>(R.id.buttonRegister)?.visibility= View.VISIBLE
-            view?.findViewById<Button>(R.id.buttonRegisterBack)?.visibility= View.VISIBLE
-        }
-    }*/
-
     private fun correctFormatMail(email: String): Boolean{
         val reg=Regex("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}\$")
         return reg.matches(email)

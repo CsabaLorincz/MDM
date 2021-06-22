@@ -59,11 +59,11 @@ class AppListFragment : Fragment() {
         compName=(activity as MDMActivity).getComp()
 
 
-        val APP_PACKAGES = ArrayList<String>()
+        val appPackages = ArrayList<String>()
         for (i in MDMActivity.getAllApps().indices) {
             val packageInfo = MDMActivity.getAllApps()[i]
             if((activity as MDMActivity).allowed(packageInfo))
-                APP_PACKAGES.add(packageInfo.applicationInfo.packageName)
+                appPackages.add(packageInfo.applicationInfo.packageName)
         }
         val adbError=view.findViewById<TextView>(R.id.DPMErrorView)
         adbError.visibility=View.INVISIBLE
@@ -72,7 +72,7 @@ class AppListFragment : Fragment() {
             ownerState=true
             if (deviceManager!!.isAdminActive(compName!!)) {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    deviceManager!!.setLockTaskPackages(compName!!, APP_PACKAGES.toTypedArray())
+                    deviceManager!!.setLockTaskPackages(compName!!, appPackages.toTypedArray())
                 }
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
                     deviceManager!!.setLockTaskFeatures(compName!!, DevicePolicyManager.LOCK_TASK_FEATURE_HOME or
@@ -192,13 +192,5 @@ class AppListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         appAdapter.setParView(view)
     }
-
-    /*private fun allowed(packageInfo: PackageInfo):Boolean{
-        val packageManager=(activity as MDMActivity).packageManager
-        val name=packageInfo.applicationInfo.loadLabel(packageManager).toString()
-        if(MDMActivity.applications.applications.contains(name))
-            return false
-        return true
-    }*/
 
 }
